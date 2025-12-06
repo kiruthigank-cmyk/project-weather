@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+    function show()
+        {
+        var cname=document.getElementById("city").value;
+        var api=`https://api.openweathermap.org/data/2.5/weather?q=${cname}&appid=254005526d4a0198f2f3533d9eba5dfc`;
+        //   document.getElementById("res").innerHTML=api;
+       fetch(api)
+       .then((response)=>response.json())
+       .then((data)=>{
+        console.log(data);
+        document.getElementById("res1").innerHTML=data.weather[0].main;
+        document.getElementById("res2").innerHTML=data.weather[0].description;
+        document.getElementById("res3").innerHTML=data.wind.speed;
+        document.getElementById("res4").innerHTML=data.main.temp;
+        document.getElementById("res5").innerHTML=data.main.humidity;
+        document.getElementById("res6").innerHTML=data.wind.speed;
+
+    })      
+       .catch((err)=>{ 
+        console.log(""+err);
+        document.getElementById("sid").style.display="none";
+        document.getElementById("res7").innerHTML="❎City not found";
+       })          
+         }     
+</script>
+<style type="text/css">
+    body{
+        background-image: url("./images/weather.jpg");
+        background-size: cover;
+    }
+    h1{
+        background-color: blueviolet;
+        border-radius: 25px;
+        border: 5px solid rgb(221, 243, 25);
+    }
+    #sid{
+        text-align: left;
+        background-color:rgb(9, 28, 43);
+        width:65%;
+        border-radius: 10px;
+        box-shadow: 5px 5px 5px 1px rgb(243, 146, 160);
+        opacity: .5;
+        font-size: 25px;
+        color: rgb(9, 236, 104);
+    }
+    #sod{
+        color:blue;
+        font-size: 25px;
+    }
+</style>
+</head>
+<body>
+    <center>
+        <h1>Live Weather Report</h1>
+        <h3><span id="author">Report by Kiruthiga</span></h3>
+    <input type="text" id="city" placeholder="enter city name">
+    <br>
+    <button onclick="show()">clickme</button>
+    <div id="res"></div>
+    <div id="sid">
+    ☁Main Weather Report:<br><center><span id="res1"></span></center>
+    <br>🌩Detailed Weather Report:<br><center><span id="res2"></span></center>
+    <br>🌪Wind Speed:<br><center><span id="res3"></span></center>
+    <br>🔥Temperature:<br><center><span id="res4"></span></center>
+    <br>🌫Humadity:<br><center><span id="res5"></span></center>
+    <br>💨Speed:<br><center><span id="res6"></span></center>
+    </div>
+    <div id="sod">
+    <br>Message:<span id="res7"></span>
+    </div>
+    </center>
+</body>
+</html>
